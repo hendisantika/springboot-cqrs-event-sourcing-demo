@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by IntelliJ IDEA.
@@ -31,5 +32,14 @@ class OfferService {
         pendingEvents.forEach(this::saveAndPublish);
         offer.markEventsAsCommitted();
         log.info("Offer with UUID [{}] stored, [{}] pending events saved and published", offer.getUuid(), noOfEvents);
+    }
+
+    Offer load(UUID uuid) {
+        List<OfferEvent> events = offerStore.findByOfferUUIDOrderByCreatedAt(uuid);
+        if (events.isEmpty()) {
+            throw new OfferNotFoundException(String.format("Offer with UUID [%s] not found", uuid));
+        }
+        log.info("Offer with UUID [{}] loaded from store", uuid);
+        return Offer.from(uuid, events);
     }
 }
