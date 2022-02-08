@@ -7,6 +7,8 @@ import com.hendisantika.offer.domain.infrastructure.event.OfferEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : springboot-cqrs-event-sourcing-demo
@@ -26,6 +28,14 @@ public class OfferEventSerializer {
         try {
             return new EventDescriptor(om.writeValueAsString(event), event.eventTime(), event.type());
         } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public OfferEvent deserialize(EventDescriptor eventDescriptor) {
+        try {
+            return om.readValue(eventDescriptor.getBody(), OfferEvent.class);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
