@@ -2,6 +2,8 @@ package com.hendisantika.offer.domain.infrastructure.event;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.hendisantika.offer.domain.event.OfferCreatedEvent;
+import com.hendisantika.offer.domain.event.OfferUpdatedEvent;
 
 import java.util.UUID;
 
