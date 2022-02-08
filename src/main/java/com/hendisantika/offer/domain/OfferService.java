@@ -42,4 +42,9 @@ class OfferService {
         log.info("Offer with UUID [{}] loaded from store", uuid);
         return Offer.from(uuid, events);
     }
+
+    private void saveAndPublish(OfferEvent event) {
+        offerStore.save(event);
+        eventPublisher.publish(event);
+    }
 }
