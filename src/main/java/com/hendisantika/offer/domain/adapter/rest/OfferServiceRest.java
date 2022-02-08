@@ -1,6 +1,7 @@
 package com.hendisantika.offer.domain.adapter.rest;
 
 import com.hendisantika.offer.domain.command.CreateOfferCommand;
+import com.hendisantika.offer.domain.command.UpdateOfferCommand;
 import com.hendisantika.offer.domain.port.primary.OfferCommandService;
 import com.hendisantika.offer.query.OfferQueryService;
 import lombok.RequiredArgsConstructor;
@@ -29,5 +30,10 @@ class OfferServiceRest {
     UUID createOffer(CreateOfferRequest request, String createdBy, LocalDateTime createdAt) {
         CreateOfferCommand command = offerMapper.toCreateOfferCommand(request, createdBy, createdAt);
         return offerCommandService.createOffer(command);
+    }
+
+    void updateOffer(UUID offerUUID, UpdateOfferRequest request, String updatedBy, LocalDateTime updatedAt) {
+        UpdateOfferCommand command = offerMapper.toUpdateOfferCommand(request, offerUUID, updatedBy, updatedAt);
+        offerCommandService.updateOffer(command);
     }
 }
