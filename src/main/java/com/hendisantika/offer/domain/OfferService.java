@@ -1,5 +1,6 @@
 package com.hendisantika.offer.domain;
 
+import com.hendisantika.offer.domain.port.secondary.OfferStore;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
