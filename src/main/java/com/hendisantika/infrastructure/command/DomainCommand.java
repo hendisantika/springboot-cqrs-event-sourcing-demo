@@ -10,5 +10,5 @@ package com.hendisantika.infrastructure.command;
  * Time: 20.34
  * To change this template use File | Settings | File Templates.
  */
-public class DomainCommand {
+public interface DomainCommand {
 }

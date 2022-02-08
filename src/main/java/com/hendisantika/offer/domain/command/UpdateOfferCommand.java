@@ -1,5 +1,6 @@
 package com.hendisantika.offer.domain.command;
 
+import com.hendisantika.offer.domain.infrastructure.command.OfferDomainCommand;
 import lombok.Builder;
 import lombok.Value;
 
