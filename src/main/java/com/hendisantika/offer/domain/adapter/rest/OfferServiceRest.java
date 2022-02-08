@@ -1,9 +1,13 @@
 package com.hendisantika.offer.domain.adapter.rest;
 
+import com.hendisantika.offer.domain.command.CreateOfferCommand;
 import com.hendisantika.offer.domain.port.primary.OfferCommandService;
 import com.hendisantika.offer.query.OfferQueryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 /**
  * Created by IntelliJ IDEA.
@@ -21,4 +25,9 @@ class OfferServiceRest {
     private final OfferCommandService offerCommandService;
     private final OfferQueryService offerQueryService;
     private final OfferMapperRest offerMapper;
+
+    UUID createOffer(CreateOfferRequest request, String createdBy, LocalDateTime createdAt) {
+        CreateOfferCommand command = offerMapper.toCreateOfferCommand(request, createdBy, createdAt);
+        return offerCommandService.createOffer(command);
+    }
 }
