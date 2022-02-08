@@ -10,6 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * Created by IntelliJ IDEA.
@@ -32,5 +35,12 @@ class OfferStoreDb implements OfferStore {
     public void save(OfferEvent event) {
         EventDescriptor eventDescriptor = eventSerializer.serialize(event);
         eventStore.saveEvents(event.offerUUID(), Collections.singletonList(eventDescriptor));
+    }
+
+    @Override
+    public List<OfferEvent> findByOfferUUIDOrderByCreatedAt(UUID uuid) {
+        return eventStore.getEventsForAggregate(uuid).stream()
+                .map(eventSerializer::deserialize)
+                .collect(Collectors.toList());
     }
 }
