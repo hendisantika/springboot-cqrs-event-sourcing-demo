@@ -52,4 +52,12 @@ class CommandService implements OfferCommandService {
         store(offer);
         log.info("Offer with UUID [{}] mark as paid", command.getOfferUUID());
     }
+
+    private Offer loadOffer(UUID uuid) {
+        return offerService.load(uuid);
+    }
+
+    private void store(Offer offer) {
+        offerService.store(offer);
+    }
 }
