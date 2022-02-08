@@ -53,4 +53,15 @@ class OfferController {
         offerService.updateOffer(offerUUID, request, updatedBy, LocalDateTime.now());
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping(
+            path = OFFER_URL,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    ResponseEntity<OfferResponse> getOffer(@PathVariable UUID offerUUID) {
+        log.info("GET request on [{}]", OFFERS_URL + "/" + offerUUID);
+        return offerService.findOffer(offerUUID)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 }
