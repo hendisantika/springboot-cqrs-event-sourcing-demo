@@ -1,9 +1,13 @@
 package com.hendisantika.offer.domain;
 
+import com.hendisantika.infrastructure.uuid.UUIDGenerator;
+import com.hendisantika.offer.domain.command.CreateOfferCommand;
 import com.hendisantika.offer.domain.port.primary.OfferCommandService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 /**
  * Created by IntelliJ IDEA.
@@ -20,4 +24,14 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 class CommandService implements OfferCommandService {
     private final OfferService offerService;
+
+    @Override
+    public UUID createOffer(CreateOfferCommand command) {
+        UUID offerUUID = UUIDGenerator.generate();
+        Offer offer = Offer.from(offerUUID);
+        offer.create(command.getProductName(), command.getAmount(), command.getCreatedAt(), command.getCreatedBy());
+        store(offer);
+        log.info("Created new offer with UUID [{}]", offerUUID);
+        return offerUUID;
+    }
 }
