@@ -5,6 +5,7 @@ import com.hendisantika.infrastructure.db.EventStream;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -28,5 +29,11 @@ public interface EventStore extends JpaRepository<EventStream, Long> {
                 .orElseGet(() -> new EventStream(aggregateId));
         eventStream.addEvents(events);
         save(eventStream);
+    }
+
+    default List<EventDescriptor> getEventsForAggregate(UUID aggregateId) {
+        return findByUuid(aggregateId)
+                .map(EventStream::getEvents)
+                .orElse(Collections.emptyList());
     }
 }
