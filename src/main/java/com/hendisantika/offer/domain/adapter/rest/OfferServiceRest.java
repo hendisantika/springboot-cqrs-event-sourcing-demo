@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -35,5 +36,9 @@ class OfferServiceRest {
     void updateOffer(UUID offerUUID, UpdateOfferRequest request, String updatedBy, LocalDateTime updatedAt) {
         UpdateOfferCommand command = offerMapper.toUpdateOfferCommand(request, offerUUID, updatedBy, updatedAt);
         offerCommandService.updateOffer(command);
+    }
+
+    Optional<OfferResponse> findOffer(UUID offerUUID) {
+        return offerQueryService.findByOfferUUID(offerUUID).map(offerMapper::toOfferResponse);
     }
 }
