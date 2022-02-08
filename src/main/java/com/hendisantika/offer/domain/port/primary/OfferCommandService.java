@@ -1,5 +1,7 @@
 package com.hendisantika.offer.domain.port.primary;
 
+import com.hendisantika.offer.domain.command.CreateOfferCommand;
+
 import java.util.UUID;
 
 /**
