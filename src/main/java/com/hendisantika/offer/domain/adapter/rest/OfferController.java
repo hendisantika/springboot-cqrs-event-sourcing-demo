@@ -4,9 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
@@ -43,5 +41,16 @@ class OfferController {
         UUID offerUUID = offerService.createOffer(request, createdBy, LocalDateTime.now());
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path(OFFER_PATH_PARAM).buildAndExpand(offerUUID).toUri();
         return ResponseEntity.created(location).build();
+    }
+
+    @PutMapping(
+            path = OFFER_URL,
+            consumes = MediaType.APPLICATION_JSON_VALUE
+    )
+    ResponseEntity<Void> updateOffer(@PathVariable UUID offerUUID, @RequestBody @Valid UpdateOfferRequest request) {
+        log.info("PUT request on [{}]", OFFERS_URL + "/" + offerUUID);
+        String updatedBy = "rest-api-user"; // Can be replaced with Spring Security user
+        offerService.updateOffer(offerUUID, request, updatedBy, LocalDateTime.now());
+        return ResponseEntity.ok().build();
     }
 }
