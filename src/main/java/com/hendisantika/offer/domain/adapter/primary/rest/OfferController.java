@@ -1,4 +1,4 @@
-package com.hendisantika.offer.domain.adapter.rest;
+package com.hendisantika.offer.domain.adapter.primary.rest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

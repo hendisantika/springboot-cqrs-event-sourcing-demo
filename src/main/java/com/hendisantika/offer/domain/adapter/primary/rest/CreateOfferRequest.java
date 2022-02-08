@@ -1,4 +1,4 @@
-package com.hendisantika.offer.domain.adapter.rest;
+package com.hendisantika.offer.domain.adapter.primary.rest;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,12 +14,12 @@ import java.math.BigDecimal;
  * Email: hendisantika@gmail.com
  * Telegram : @hendisantika34
  * Date: 08/02/22
- * Time: 20.55
+ * Time: 20.54
  * To change this template use File | Settings | File Templates.
  */
 @Data
 @NoArgsConstructor
-class UpdateOfferRequest {
+class CreateOfferRequest {
     @NotEmpty
     private String productName;
     @NotNull

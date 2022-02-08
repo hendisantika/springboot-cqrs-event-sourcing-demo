@@ -1,4 +1,4 @@
-package com.hendisantika.offer.domain.adapter.rest;
+package com.hendisantika.offer.domain.adapter.primary.rest;
 
 import com.hendisantika.offer.domain.command.CreateOfferCommand;
 import com.hendisantika.offer.domain.command.UpdateOfferCommand;
