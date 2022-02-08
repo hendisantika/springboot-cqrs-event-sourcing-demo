@@ -2,6 +2,7 @@ package com.hendisantika.offer.domain.event;
 
 import com.hendisantika.offer.domain.infrastructure.event.BaseOfferEvent;
 import lombok.EqualsAndHashCode;
+import lombok.Value;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
