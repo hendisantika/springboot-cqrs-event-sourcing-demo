@@ -1,6 +1,7 @@
 package com.hendisantika.offer.domain;
 
 import com.hendisantika.offer.domain.event.OfferCreatedEvent;
+import com.hendisantika.offer.domain.event.OfferPaidEvent;
 import com.hendisantika.offer.domain.event.OfferUpdatedEvent;
 import com.hendisantika.offer.domain.infrastructure.event.OfferEvent;
 import lombok.AccessLevel;
