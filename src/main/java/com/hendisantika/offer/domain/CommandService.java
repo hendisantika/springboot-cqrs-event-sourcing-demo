@@ -2,6 +2,7 @@ package com.hendisantika.offer.domain;
 
 import com.hendisantika.infrastructure.uuid.UUIDGenerator;
 import com.hendisantika.offer.domain.command.CreateOfferCommand;
+import com.hendisantika.offer.domain.command.MarkOfferAsPaidCommand;
 import com.hendisantika.offer.domain.command.UpdateOfferCommand;
 import com.hendisantika.offer.domain.port.primary.OfferCommandService;
 import lombok.RequiredArgsConstructor;
@@ -42,5 +43,13 @@ class CommandService implements OfferCommandService {
         offer.update(command.getProductName(), command.getAmount(), command.getUpdatedAt(), command.getUpdatedBy());
         store(offer);
         log.info("Updated offer with UUID [{}]", command.getOfferUUID());
+    }
+
+    @Override
+    public void markOfferAsPaid(MarkOfferAsPaidCommand command) {
+        Offer offer = loadOffer(command.getOfferUUID());
+        offer.markAsPaid(command.getPaidAt(), command.getPaidBy());
+        store(offer);
+        log.info("Offer with UUID [{}] mark as paid", command.getOfferUUID());
     }
 }
