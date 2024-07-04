@@ -16,7 +16,7 @@
     <properties>
         <java.version>21</java.version>
         <org.mapstruct.mapstruct.version>1.5.5.Final</org.mapstruct.mapstruct.version>
-        <org.apache.maven.plugins.compiler.version>3.8.1</org.apache.maven.plugins.compiler.version>
+        <org.apache.maven.plugins.compiler.version>3.13.0</org.apache.maven.plugins.compiler.version>
     </properties>
     <dependencies>
         <dependency>
