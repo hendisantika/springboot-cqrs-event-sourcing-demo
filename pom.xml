@@ -15,7 +15,7 @@
     <description>springboot-cqrs-event-sourcing-demo</description>
     <properties>
         <java.version>21</java.version>
-        <org.mapstruct.mapstruct.version>1.6.0</org.mapstruct.mapstruct.version>
+        <org.mapstruct.mapstruct.version>1.6.2</org.mapstruct.mapstruct.version>
         <org.apache.maven.plugins.compiler.version>3.13.0</org.apache.maven.plugins.compiler.version>
     </properties>
     <dependencies>
