@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:18
+    container_name: springboot-cqrs-postgres
+    environment:
+      POSTGRES_DB: offer
+      POSTGRES_USER: yu71
+      POSTGRES_PASSWORD: 53cret
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U yu71 -d offer" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
