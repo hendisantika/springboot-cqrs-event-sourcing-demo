@@ -1,14 +1,104 @@
+# Dependabot configuration
+# Docs: https://docs.github.com/en/code-security/dependabot/working-with-dependabot/dependabot-options-reference
 version: 2
+
 updates:
-  - package-ecosystem: maven
+  # ---------------------------------------------------------------------------
+  # Maven dependencies & plugins (pom.xml)
+  # ---------------------------------------------------------------------------
+  - package-ecosystem: "maven"
     directory: "/"
     schedule:
-      interval: daily
-      time: '21:00'
-      timezone: Asia/Jakarta
+      interval: "daily"
+      time: "21:00"
+      timezone: "Asia/Jakarta"
     open-pull-requests-limit: 10
+    target-branch: "main"
+    labels:
+      - "dependencies"
+      - "java"
+    assignees:
+      - "hendisantika"
+    commit-message:
+      prefix: "build"
+      prefix-development: "build"
+      include: "scope"
+    rebase-strategy: "auto"
+    groups:
+      # Spring Boot parent/BOM and everything it manages move together
+      spring-boot:
+        patterns:
+          - "org.springframework.boot:*"
+          - "org.springframework:*"
+        update-types:
+          - "minor"
+          - "patch"
+      # MapStruct + Lombok annotation processors should stay in sync
+      annotation-processors:
+        patterns:
+          - "org.mapstruct:*"
+          - "org.projectlombok:*"
+      # Maven build plugins & Maven itself (incl. Maven Wrapper distribution)
+      maven-build:
+        patterns:
+          - "org.apache.maven*"
+      # Any remaining minor/patch updates in one PR to reduce noise
+      maven-minor-and-patch:
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "org.springframework.boot:*"
+          - "org.springframework:*"
+          - "org.mapstruct:*"
+          - "org.projectlombok:*"
+          - "org.apache.maven*"
+        update-types:
+          - "minor"
+          - "patch"
+    ignore:
+      # Major Spring Boot upgrades need a manual migration (e.g. javax -> jakarta, Jackson 3)
+      - dependency-name: "org.springframework.boot:*"
+        update-types: [ "version-update:semver-major" ]
 
+  # ---------------------------------------------------------------------------
+  # Docker images (docker-compose.yml)
+  # ---------------------------------------------------------------------------
+  - package-ecosystem: "docker-compose"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "21:00"
+      timezone: "Asia/Jakarta"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "docker"
+    commit-message:
+      prefix: "build"
+      include: "scope"
+    ignore:
+      # Keep PostgreSQL on the same major version (major upgrades need data migration)
+      - dependency-name: "postgres"
+        update-types: [ "version-update:semver-major" ]
+
+  # ---------------------------------------------------------------------------
+  # GitHub Actions (.github/workflows/*.yml)
+  # ---------------------------------------------------------------------------
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "daily"
+      time: "21:00"
+      timezone: "Asia/Jakarta"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
