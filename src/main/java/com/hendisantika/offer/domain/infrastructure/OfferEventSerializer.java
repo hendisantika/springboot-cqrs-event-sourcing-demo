@@ -1,13 +1,10 @@
 package com.hendisantika.offer.domain.infrastructure;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hendisantika.infrastructure.db.EventDescriptor;
 import com.hendisantika.offer.domain.infrastructure.event.OfferEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import java.io.IOException;
+import tools.jackson.databind.ObjectMapper;
 
 /**
  * Created by IntelliJ IDEA.
@@ -25,18 +22,10 @@ public class OfferEventSerializer {
     private final ObjectMapper om;
 
     public EventDescriptor serialize(OfferEvent event) {
-        try {
-            return new EventDescriptor(om.writeValueAsString(event), event.eventTime(), event.type());
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+        return new EventDescriptor(om.writeValueAsString(event), event.eventTime(), event.type());
     }
 
     public OfferEvent deserialize(EventDescriptor eventDescriptor) {
-        try {
-            return om.readValue(eventDescriptor.getBody(), OfferEvent.class);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        return om.readValue(eventDescriptor.getBody(), OfferEvent.class);
     }
 }

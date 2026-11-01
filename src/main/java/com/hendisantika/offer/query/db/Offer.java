@@ -4,9 +4,10 @@ import com.hendisantika.offer.query.OfferStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -45,7 +46,7 @@ class Offer implements Serializable {
     @GeneratedValue(generator = SEQUENCE_GENERATOR, strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Type(type = "org.hibernate.type.UUIDCharType")
+    @JdbcTypeCode(SqlTypes.VARCHAR)
     @Column(name = COLUMN_UUID, nullable = false, updatable = false)
     private UUID uuid;
 
@@ -76,7 +77,7 @@ class Offer implements Serializable {
     @Column(name = "status", nullable = false)
     private OfferStatus status;
 
-    @Type(type = "org.hibernate.type.UUIDCharType")
+    @JdbcTypeCode(SqlTypes.VARCHAR)
     @Column(name = "last_event_uuid", nullable = false)
     private UUID lastEventUUID;
 

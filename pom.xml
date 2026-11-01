@@ -17,6 +17,7 @@
         <java.version>25</java.version>
         <org.mapstruct.mapstruct.version>1.6.3</org.mapstruct.mapstruct.version>
         <org.apache.maven.plugins.compiler.version>3.16.0</org.apache.maven.plugins.compiler.version>
+        <org.projectlombok.lombok-mapstruct-binding.version>0.2.0</org.projectlombok.lombok-mapstruct-binding.version>
     </properties>
     <dependencies>
         <dependency>
@@ -105,14 +106,19 @@
                     <release>${java.version}</release>
                     <annotationProcessorPaths>
                         <path>
-                            <groupId>org.mapstruct</groupId>
-                            <artifactId>mapstruct-processor</artifactId>
-                            <version>${org.mapstruct.mapstruct.version}</version>
-                        </path>
-                        <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
                             <version>${lombok.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok-mapstruct-binding</artifactId>
+                            <version>${org.projectlombok.lombok-mapstruct-binding.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${org.mapstruct.mapstruct.version}</version>
                         </path>
                     </annotationProcessorPaths>
                     <compilerArgs>
