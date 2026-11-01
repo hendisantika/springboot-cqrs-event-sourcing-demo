@@ -14,7 +14,7 @@
     <name>springboot-cqrs-event-sourcing-demo</name>
     <description>springboot-cqrs-event-sourcing-demo</description>
     <properties>
-        <java.version>21</java.version>
+        <java.version>25</java.version>
         <org.mapstruct.mapstruct.version>1.6.3</org.mapstruct.mapstruct.version>
         <org.apache.maven.plugins.compiler.version>3.16.0</org.apache.maven.plugins.compiler.version>
     </properties>
@@ -102,8 +102,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${org.apache.maven.plugins.compiler.version}</version>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <release>${java.version}</release>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.mapstruct</groupId>
